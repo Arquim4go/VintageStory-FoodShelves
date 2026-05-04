@@ -24,7 +24,7 @@ public class BETableWShelf : BEBaseFSContainer {
         if (slot.Itemstack?.IsLargeItem() == true)
             return false;
 
-        if (!inv[0].Empty && inv[0].Itemstack?.IsMediumItem() == true)
+        if (slot.Itemstack?.IsMediumItem() == true && !slot.Itemstack.Collectible.Code.Path.StartsWith("rollingpin-"))
             return false;
 
         return base.TryPut(byPlayer, slot, blockSel);

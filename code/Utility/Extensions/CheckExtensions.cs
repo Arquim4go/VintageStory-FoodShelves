@@ -62,7 +62,7 @@ public static class CheckExtensions {
     public static bool IsSmallItem(this ItemStack stack) {
         string stackCode = stack.Collectible.Code.ToString() ?? "";
 
-        if (WildcardUtil.Match("wildcraftfruit:nut-*bar", stackCode)) return true;
+        if (WildcardUtil.Match("wildcraftfruit:nutbar-*", stackCode)) return true;
         if (WildcardUtil.Match("expandedfoods:fruitbar-*", stackCode)) return true;
         if (WildcardUtil.Match("expandedfoods:cookedveggie-*", stackCode)) return true;
 

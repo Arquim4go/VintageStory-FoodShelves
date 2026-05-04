@@ -14,6 +14,7 @@
     "op": "replace", "path": "/1/enabled", "side": "server", "value": true,
     "dependsOn": [ { "modid": "wildcraftfruit" } ]
   },
+
   {
     "file": "foodshelves:blocktypes/glassware/seedbins.json",
     "op": "addmerge", "path": "/attributes/variantTextures/seed0/-", "side": "server", 

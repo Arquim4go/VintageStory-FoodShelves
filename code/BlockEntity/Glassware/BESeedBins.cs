@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Linq;
-
-namespace FoodShelves;
+﻿namespace FoodShelves;
 
 public class BESeedBins : BEBaseFSContainer {
     protected new BaseFSContainer block = null!;
@@ -51,7 +48,7 @@ public class BESeedBins : BEBaseFSContainer {
         blockMesh = GenBlockVariantMesh(capi, this.GetVariantStack(), [.. dontRender]);
     }
 
-    protected override float[][]? genTransformationMatrices() { return null; } // Unneeded
+    protected override float[][]? genTransformationMatrices() => null; // Unneeded
 
     public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator) {
         base.OnTesselation(mesher, tesselator);

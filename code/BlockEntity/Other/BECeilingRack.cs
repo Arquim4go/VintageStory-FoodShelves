@@ -1,6 +1,8 @@
 ﻿namespace FoodShelves;
 
 public class BECeilingRack : BEBaseFSContainer {
+    protected MeshData? ropeMesh;
+
     protected override InfoDisplayOptions InfoDisplay => InfoDisplayOptions.ByBlock;
 
     protected override float PerishMultiplier => 0.74f;
@@ -55,24 +57,6 @@ public class BECeilingRack : BEBaseFSContainer {
         if (contentMesh != null) blockMesh?.AddMeshData(contentMesh);
     }
 
-    public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator) {
-        bool skipmesh = base.BaseRenderContents(mesher, tesselator);
-
-        if (!skipmesh) {
-            if (!inv[1].Empty) {
-                Shape? rackRope = Api.Assets.TryGet(ShapeReferences.utilCeilingRack)?.ToObject<Shape>();
-                if (rackRope != null) {
-                    tesselator.TesselateShape(block, rackRope, out MeshData ropeMesh);
-                    blockMesh?.AddMeshData(ropeMesh);
-                }
-            }
-
-            mesher.AddMeshData(blockMesh);
-        }
-
-        return true;
-    }
-
     protected override float[][]? genTransformationMatrices() {
         return TransformationGenerator.GenerateLayout(this, td => {
             // Hide original contents, can't bother to mesh it out
@@ -80,6 +64,32 @@ public class BECeilingRack : BEBaseFSContainer {
                 td.hidden = true;
             }
         });
+    }
+
+    private MeshData? GenerateRopeMesh(ITesselatorAPI tesselator) {
+        MeshData? ropeMesh = null;
+
+        Shape? rackRope = Api.Assets.TryGet(ShapeReferences.utilCeilingRack)?.ToObject<Shape>();
+        if (rackRope != null) {
+            tesselator.TesselateShape(block, rackRope, out ropeMesh);
+        }
+
+        return ropeMesh;
+    }
+
+    public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator) {
+        bool skipmesh = base.BaseRenderContents(mesher, tesselator);
+
+        if (!skipmesh) {
+            if (!inv[1].Empty) {
+                ropeMesh ??= GenerateRopeMesh(tesselator);
+                mesher.AddMeshData(ropeMesh);
+            }
+
+            mesher.AddMeshData(blockMesh);
+        }
+
+        return true;
     }
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {

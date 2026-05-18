@@ -19,16 +19,16 @@ public class BEJar : BEBaseFSContainer {
         base.Initialize(api);
     }
 
-    protected override void InitMesh() {
-        base.InitMesh();
+    protected override float[][]? genTransformationMatrices() => null; // Unneeded
 
-        if (capi == null) return;
-
+    public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator) {
+        base.OnTesselation(mesher, tesselator);
+        
         MeshData? contentMesh = GenLiquidyMesh(capi, inv[0], ShapeReferences.utilJar, 7.3f);
-        if (contentMesh != null) blockMesh?.AddMeshData(contentMesh);
-    }
+        if (contentMesh != null) mesher.AddMeshData(contentMesh);
 
-    protected override float[][]? genTransformationMatrices() { return null; } // Unneeded
+        return true;
+    }
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
         base.GetBlockInfo(forPlayer, sb);

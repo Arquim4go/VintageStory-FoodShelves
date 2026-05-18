@@ -24,7 +24,7 @@ public class BETableWShelf : BEBaseFSContainer {
         if (slot.Itemstack?.IsLargeItem() == true)
             return false;
 
-        if (slot.Itemstack?.IsMediumItem() == true && !slot.Itemstack.Collectible.Code.Path.StartsWith("rollingpin-"))
+        if (!inv[0].Empty && inv[0].Itemstack!.IsMediumItem())
             return false;
 
         return base.TryPut(byPlayer, slot, blockSel);
@@ -42,7 +42,7 @@ public class BETableWShelf : BEBaseFSContainer {
                     td.scaleX = td.scaleY = td.scaleZ = 0.85f;
                 }
 
-                if (itemPath.StartsWith("rollingpin-")) {
+                if (inv[td.index].Itemstack!.IsMediumItem()) {
                     td.z = 0;
                 }
             }

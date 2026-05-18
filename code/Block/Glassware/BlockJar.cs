@@ -62,7 +62,9 @@ public class BlockJar : BaseFSContainer, IContainedCustomName, IContainedInterac
     }
 
     public override MeshData? GenMesh(ItemSlot slot, ITextureAtlasAPI targetAtlas, BlockPos? atBlockPos) {
-        MeshData? blockMesh = base.GenMesh(slot, targetAtlas, atBlockPos);
+        MeshData? blockMesh = slot.Inventory?.ClassName == "hotbar"
+            ? GenBlockVariantMesh(api, slot.Itemstack, ["Glass1"])
+            : base.GenMesh(slot, targetAtlas, atBlockPos);
 
         ItemStack[] contents = GetContents(api.World, slot.Itemstack);
         
@@ -77,13 +79,15 @@ public class BlockJar : BaseFSContainer, IContainedCustomName, IContainedInterac
     public override string GetMeshCacheKey(ItemSlot slot) {
         string blockKey = base.GetMeshCacheKey(slot);
 
+        int hotbarSlot = slot.Inventory?.ClassName == "hotbar" ? 1 : 0; // To remove the glass from the hotbar - doesn't render.
+
         ItemStack[] contents = GetContents(api.World, slot.Itemstack);
         if (contents.Length == 0) return blockKey;
 
         string code = contents[0].Item?.Code ?? "unknown";
         float amount = contents[0].StackSize;
 
-        return $"{blockKey}-{code}-{amount}";
+        return $"{blockKey}-{code}-{amount}-{hotbarSlot}";
     }
 
     public string GetContainedInfo(ItemSlot inSlot) {

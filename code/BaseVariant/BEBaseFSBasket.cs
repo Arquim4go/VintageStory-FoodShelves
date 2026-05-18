@@ -2,6 +2,7 @@
 
 public abstract class BEBaseFSBasket : BEBaseFSContainer {
     protected new BaseFSBasket block = null!;
+    protected MeshData? ropeMesh;
 
     protected abstract string CeilingAttachedUtil { get; }
 
@@ -94,22 +95,27 @@ public abstract class BEBaseFSBasket : BEBaseFSContainer {
         });
     }
 
+    private MeshData? GenerateRopeMesh(ITesselatorAPI tesselator) {
+        MeshData? ropeMesh = null;
+
+        Shape? basketRope = Api.Assets.TryGet(CeilingAttachedUtil)?.ToObject<Shape>();
+        if (basketRope != null) {
+            tesselator.TesselateShape(block, basketRope, out ropeMesh);
+
+            float scale = block?.Shape.Scale ?? 0;
+            ropeMesh.Scale(new Vec3f(0.5f, 0, 0.5f), scale, scale, scale);
+        }
+
+        return ropeMesh;
+    }
+
     public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator) {
         bool skipmesh = base.BaseRenderContents(mesher, tesselator);
 
         if (!skipmesh) {
-            InitMesh();
-
             if (IsCeilingAttached) {
-                Shape? basketRope = Api.Assets.TryGet(CeilingAttachedUtil)?.ToObject<Shape>();
-                if (basketRope != null) {
-                    tesselator.TesselateShape(block, basketRope, out MeshData ropeMesh);
-
-                    float scale = block?.Shape.Scale ?? 0;
-                    ropeMesh.Scale(new Vec3f(0.5f, 0, 0.5f), scale, scale, scale);
-
-                    blockMesh?.AddMeshData(ropeMesh);
-                }
+                ropeMesh ??= GenerateRopeMesh(tesselator);
+                mesher.AddMeshData(ropeMesh?.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0));
             }
 
             mesher.AddMeshData(blockMesh?.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0));

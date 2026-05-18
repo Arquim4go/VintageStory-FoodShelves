@@ -34,13 +34,12 @@ public class ItemSlotFSUniversal : ItemSlot {
         return capacity - StackSize;
     }
 
+    public override bool CanHold(ItemSlot slot) {
+        return slot.CanStoreInSlot(attributeCheck) && base.CanHold(slot);
+    }
 
     public override bool CanTakeFrom(ItemSlot slot, EnumMergePriority priority = EnumMergePriority.AutoMerge) {
         return slot.CanStoreInSlot(attributeCheck) && base.CanTakeFrom(slot, priority);
-    }
-
-    public override bool CanHold(ItemSlot slot) {
-        return slot.CanStoreInSlot(attributeCheck) && base.CanHold(slot);
     }
 
     public override int TryPutInto(IWorldAccessor world, ItemSlot sinkSlot, int quantity = 1) {

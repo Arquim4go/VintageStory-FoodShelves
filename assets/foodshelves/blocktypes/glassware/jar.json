@@ -45,6 +45,9 @@
   "sideao": { "all": true },
   "sidesolid": { "all": false },
   "sideopaque": { "all": false },
+  "groundTransform": {
+    "scale": 2
+  },
   "guiTransform": {
     "origin": { "x": 0.5, "y": 0.35, "z": 0.5 },
     "scale": 1.8

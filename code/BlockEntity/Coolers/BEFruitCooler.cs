@@ -25,8 +25,8 @@ public class BEFruitCooler : BEBaseFSCooler {
     protected override AssetLocation DrawerOpenSound => SoundReferences.FruitDrawerOpen;
     protected override AssetLocation DrawerCloseSound => SoundReferences.FruitDrawerClose;
 
-    protected override (string, float) DoorOpenAnim => ("dooropen", 2f);
-    protected override (string, float) DrawerOpenAnim => ("draweropen", 4f);
+    protected override AnimationData DoorOpenAnim => new ("dooropen", 2f);
+    protected override AnimationData DrawerOpenAnim => new ("draweropen", 4f);
     // ------------------------------------------
 
     private enum SlotType {
@@ -57,7 +57,7 @@ public class BEFruitCooler : BEBaseFSCooler {
         base.InitMesh();
 
         for (int i = 0; i < 4; i++) {
-            contentMeshes[i] = GenLiquidyMesh(capi, inv[i], ShapeReferences.utilFruitCooler, 9f).BlockYRotation(block);
+            contentMeshes[i] = GenLiquidyMesh(capi, inv[i], ShapeReferences.utilFruitCooler, 8.9f).BlockYRotation(block);
         }
     }
 
@@ -144,5 +144,5 @@ public class BEFruitCooler : BEBaseFSCooler {
         return true;
     }
 
-    protected override float[][]? genTransformationMatrices() { return null; } // Unneeded
+    protected override float[][]? genTransformationMatrices() => null; // Unneeded
 }

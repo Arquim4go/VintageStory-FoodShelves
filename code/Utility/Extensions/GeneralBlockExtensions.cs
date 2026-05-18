@@ -44,9 +44,11 @@ public static class GeneralBlockExtensions {
             return "";
 
         foreach (var pair in tree) {
-            if (pair.Key == "wood") {
-                string toReturn = Lang.Get("game:material-" + pair.Value);
-                return (includeParenthesis ? "(" : "") + toReturn + (includeParenthesis ? ")" : "");
+            switch (pair.Key) {
+                case "wood":
+                    return (includeParenthesis ? "(" : "") + Lang.Get("game:material-" + pair.Value) + (includeParenthesis ? ")" : "");
+                case "rock":
+                    return (includeParenthesis ? "(" : "") + Lang.Get("game:rock-" + pair.Value) + (includeParenthesis ? ")" : "");
             }
         }
 

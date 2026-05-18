@@ -13,11 +13,11 @@ public static class FSDataLoader {
         }
 
         if (api.Side == EnumAppSide.Client) {
-            Dictionary<string, string[]> restrictionGroups = new() {
+            Dictionary<string, string[]> restrictionGroupsClient = new() {
                 ["baskets"] = ["vegetablebasket"]
             };
 
-            LoadData(api, restrictionGroups, restrictions, transformations);
+            LoadData(api, restrictionGroupsClient, restrictions, transformations);
         }
 
         // Both Server & Client

@@ -17,21 +17,16 @@ public class BEJarLarge : BEBaseFSContainer {
         base.Initialize(api);
     }
 
-    protected override void InitMesh() {
-        base.InitMesh();
-
-        if (capi == null) return;
+    public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator) {
+        base.OnTesselation(mesher, tesselator);
 
         MeshData? contentMesh = GenLiquidyMesh(capi, inv[0], ShapeReferences.utilJarLarge, 9f);
-        if (contentMesh != null) blockMesh?.AddMeshData(contentMesh);
-    }
+        if (contentMesh != null) mesher.AddMeshData(contentMesh);
 
-    public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator) {
-        mesher.AddMeshData(blockMesh);
         return true;
     }
 
-    protected override float[][]? genTransformationMatrices() { return null; } // Unneeded
+    protected override float[][]? genTransformationMatrices() => null; // Unneeded
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb) {
         base.GetBlockInfo(forPlayer, sb);

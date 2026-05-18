@@ -40,20 +40,6 @@ public class BETunRack : BEBaseFSContainer {
         MarkDirty(true);
     }
 
-    protected override void InitMesh() {
-        var blockStack = new ItemStack(block);
-        if (VariantAttributes.Count != 0) {
-            blockStack.Attributes[FSAttributes] = VariantAttributes;
-        }
-
-        blockMesh = GenBlockVariantMesh(Api, blockStack);
-
-        if (inv[0].Itemstack?.Block != null) {
-            MeshData? tunMesh = GenBlockVariantMesh(Api, inv[0].Itemstack);
-            blockMesh?.AddMeshData(tunMesh?.BlockYRotation(block));
-        }
-    }
-
     public override bool OnInteract(IPlayer byPlayer, BlockSelection blockSel, string? overrideAttrCheck = null) {
         ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
 
@@ -117,5 +103,18 @@ public class BETunRack : BEBaseFSContainer {
         return false;
     }
 
-    protected override float[][]? genTransformationMatrices() { return null; } // Unneeded
+    protected override float[][]? genTransformationMatrices() => null; // Unneeded
+
+    public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator) {
+        InitMesh();
+
+        ItemStack[] stack = GetContentStacks();
+        if (stack[0]?.Block != null) {
+            MeshData? woodtypedTunMesh = GenBlockVariantMesh(Api, inv[0].Itemstack);
+            mesher.AddMeshData(woodtypedTunMesh.BlockYRotation(block));
+        }
+
+        mesher.AddMeshData(blockMesh);
+        return true;
+    }
 }

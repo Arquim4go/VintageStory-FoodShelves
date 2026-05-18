@@ -6,7 +6,7 @@ public class BEFlourSack : BEBaseFSContainer {
 
     protected override float PerishMultiplier => 0.6f;
 
-    public BEFlourSack() { inv = new InventoryGeneric(SlotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotFSUniversal(inv, AttributeCheck, 4, true)); }
+    public BEFlourSack() { inv = new InventoryGeneric(SlotCount, InventoryClassName + "-0", Api, (_, inv) => new ItemSlotFSUniversal(inv, AttributeCheck, 8, true)); }
 
     protected override void InitMesh() {
         if (capi == null) return;
@@ -19,16 +19,18 @@ public class BEFlourSack : BEBaseFSContainer {
         else {
             blockMesh = GenBlockVariantMesh(capi, this.GetVariantStack(), ["sackicon"]);
         }
-
-        MeshData? contentMesh = GenLiquidyMesh(capi, inv[0], ShapeReferences.utilFlourSack, 13f);
-        if (contentMesh != null) blockMesh?.AddMeshData(contentMesh);
     }
 
     public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator) {
         InitMesh(); // Re-meshing the falling block
+
         mesher.AddMeshData(blockMesh);
+
+        MeshData? contentMesh = GenLiquidyMesh(capi, inv[0], ShapeReferences.utilFlourSack, 13f);
+        if (contentMesh != null) mesher?.AddMeshData(contentMesh);
+        
         return true;
     }
 
-    protected override float[][]? genTransformationMatrices() { return null; } // Unneeded
+    protected override float[][]? genTransformationMatrices() => null; // Unneeded
 }

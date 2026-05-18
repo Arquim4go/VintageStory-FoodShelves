@@ -17,10 +17,10 @@ public abstract class BEBaseFSCooler : BEBaseFSAnimatable {
     protected abstract AssetLocation DrawerOpenSound { get; }
     protected abstract AssetLocation DrawerCloseSound { get; }
 
-    protected virtual (string, float) DoorOpenAnim => ("dooropen", 3f);
-    protected virtual (string, float) DrawerOpenAnim => ("draweropen", 3f);
-    protected virtual (string, float) WaterHeightAnim => ("waterheight", 6f);
-    protected virtual (string, float) IceHeightAnim => ("iceheight", 6f);
+    protected virtual AnimationData DoorOpenAnim => new ("dooropen", 3f);
+    protected virtual AnimationData DrawerOpenAnim => new ("draweropen", 3f);
+    protected virtual AnimationData WaterHeightAnim => new ("waterheight", 6f);
+    protected virtual AnimationData IceHeightAnim => new ("iceheight", 6f);
 
     [TreeSerializable(false)] public bool DoorOpen { get; set; }
     [TreeSerializable(false)] public bool DrawerOpen { get; set; }
@@ -126,7 +126,7 @@ public abstract class BEBaseFSCooler : BEBaseFSAnimatable {
         }
 
         if (open) {
-            AnimUtil.TryStartAnimation(DoorOpenAnim.Item1, DoorOpenAnim.Item2);
+            AnimUtil.TryStartAnimation(DoorOpenAnim.Code, DoorOpenAnim.Speed);
             PerishMultiplier = 1f;
 
             if (byPlayer != null) {
@@ -134,7 +134,7 @@ public abstract class BEBaseFSCooler : BEBaseFSAnimatable {
             }
         }
         else {
-            AnimUtil.TryStopAnimation(DoorOpenAnim.Item1);
+            AnimUtil.TryStopAnimation(DoorOpenAnim.Code);
 
             PerishMultiplier = !DrawerOpen && !inv[CutIceSlot].Empty && inv[CutIceSlot].CanStoreInSlot(FSCoolingOnly)
                 ? perishMultiplierBuffed
@@ -154,7 +154,7 @@ public abstract class BEBaseFSCooler : BEBaseFSAnimatable {
         }
 
         if (open) {
-            AnimUtil.TryStartAnimation(DrawerOpenAnim.Item1, DrawerOpenAnim.Item2);
+            AnimUtil.TryStartAnimation(DrawerOpenAnim.Code, DrawerOpenAnim.Speed);
 
             if (byPlayer != null) {
                 Api.World.PlaySoundAt(DrawerOpenSound, byPlayer, byPlayer, true, 16);
@@ -165,7 +165,7 @@ public abstract class BEBaseFSCooler : BEBaseFSAnimatable {
             }
         }
         else {
-            AnimUtil.TryStopAnimation(DrawerOpenAnim.Item1);
+            AnimUtil.TryStopAnimation(DrawerOpenAnim.Code);
 
             if (!DoorOpen && !inv[CutIceSlot].Empty && inv[CutIceSlot].CanStoreInSlot(FSCoolingOnly)) {
                 PerishMultiplier = perishMultiplierBuffed;
@@ -182,20 +182,20 @@ public abstract class BEBaseFSCooler : BEBaseFSAnimatable {
     protected virtual void SetIceHeight(bool up) {
         if (up) {
             SetWaterHeight(false);
-            AnimUtil.TryStartAnimation(IceHeightAnim.Item1, IceHeightAnim.Item2);
+            AnimUtil.TryStartAnimation(IceHeightAnim.Code, IceHeightAnim.Speed);
         }
         else {
-            AnimUtil.TryStopAnimation(IceHeightAnim.Item1);
+            AnimUtil.TryStopAnimation(IceHeightAnim.Code);
         }
     }
 
     protected virtual void SetWaterHeight(bool up) {
         if (up) {
             SetIceHeight(false);
-            AnimUtil.TryStartAnimation(WaterHeightAnim.Item1, WaterHeightAnim.Item2);
+            AnimUtil.TryStartAnimation(WaterHeightAnim.Code, WaterHeightAnim.Speed);
         }
         else {
-            AnimUtil.TryStopAnimation(WaterHeightAnim.Item1);
+            AnimUtil.TryStopAnimation(WaterHeightAnim.Code);
         }
     }
 

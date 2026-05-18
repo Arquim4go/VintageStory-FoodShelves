@@ -27,15 +27,6 @@ public class BEBarrelRack : BEBaseFSContainer {
         (inv[1] as ItemSlotLiquidOnly)?.CapacityLitres = capacityLitres;
     }
 
-    protected override void InitMesh() {
-        var stack = new ItemStack(block);
-        if (VariantAttributes.Count != 0) {
-            stack.Attributes[FSAttributes] = VariantAttributes;
-        }
-
-        blockMesh = GenBlockVariantMesh(Api, stack);
-    }
-
     public override bool OnInteract(IPlayer byPlayer, BlockSelection blockSel, string? overrideAttrCheck = null) {
         ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
 
@@ -99,6 +90,8 @@ public class BEBarrelRack : BEBaseFSContainer {
         return false;
     }
 
+    protected override float[][]? genTransformationMatrices() => null; // Unneeded
+
     public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator) {
         InitMesh();
 
@@ -113,6 +106,4 @@ public class BEBarrelRack : BEBaseFSContainer {
         mesher.AddMeshData(currentMesh);
         return true;
     }
-
-    protected override float[][]? genTransformationMatrices() { return null; } // Unneeded
 }

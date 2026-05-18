@@ -14,6 +14,15 @@ public static class LocationalExtensions {
     }
 
     /// <summary>
+    /// Safely gets a value from the array. 
+    /// Returns 0f if the array is null, the index is out of bounds, or the value at the index is null.
+    /// </summary>
+    public static float GetValue(float?[] array, int index) {
+        if (index >= array.Length) return 0f;
+        return array[index] ?? 0f;
+    }
+
+    /// <summary>
     /// Applies the given <see cref="ModelTransform"/> to the matrix, modifying its translation, rotation, and scale.
     /// </summary>
     public static void ApplyModelTransformToMatrixF(this Matrixf mat, ModelTransform? transformation) {

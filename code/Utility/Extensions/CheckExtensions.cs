@@ -7,17 +7,22 @@ public static class CheckExtensions {
     /// using reflection.
     /// </summary>
     public static bool CheckTypedRestriction(this CollectibleObject obj, RestrictionData data) 
-        => data.CollectibleTypes.Contains(obj.Code.Domain + ":" + obj.GetType().Name);
+        => data.CollectibleTypes?.Contains(obj.Code.Domain + ":" + obj.GetType().Name) == true;
 
     /// <summary>
     /// Determines whether the collectible in the given slot has the specified attribute set to true, indicating that it is allowed to be stored.
     /// </summary>
     public static bool CanStoreInSlot(this ItemSlot slot, string attributeWhitelist) {
-        if (attributeWhitelist == "shelvable") {
-            return slot.Itemstack?.Collectible?.Attributes?[attributeWhitelist].Exists == true;
-        }
+        var stack = slot.Itemstack;
+        var collectible = stack?.Collectible;
 
-        return slot.Itemstack?.Collectible?.Attributes?[attributeWhitelist].AsBool() == true;
+        if (collectible == null) return false;
+
+        return attributeWhitelist switch {
+            "shelvable" when collectible is IShelvable s && s.GetShelvableType(stack!) is EnumShelvableLayout => true,
+            "shelvable" => collectible.Attributes?[attributeWhitelist].Exists == true,
+            _ => collectible.Attributes?[attributeWhitelist].AsBool() == true
+        };
     }
 
     /// <summary>
@@ -33,8 +38,7 @@ public static class CheckExtensions {
         var collectible = stack.Collectible;
         if (collectible == null) return false;
 
-        if (collectible.GetCollectibleInterface<IShelvable>()?.GetShelvableType(stack) == EnumShelvableLayout.SingleCenter) return true;
-        if (stack.ItemAttributes["shelvable"]?.ToString() == "SingleCenter") return true;
+        if (BlockEntityShelf.GetShelvableLayout(stack) == EnumShelvableLayout.SingleCenter) return true;
 
         if (collectible.Code.Path.StartsWith("claypot-") == true) return true;
         
@@ -50,8 +54,7 @@ public static class CheckExtensions {
         var collectible = stack.Collectible;
         if (collectible == null) return false;
 
-        if (collectible.GetCollectibleInterface<IShelvable>()?.GetShelvableType(stack) == EnumShelvableLayout.Halves) return true;
-        if (stack.ItemAttributes["shelvable"]?.ToString() == "Halves") return true;
+        if (BlockEntityShelf.GetShelvableLayout(stack) == EnumShelvableLayout.Halves) return true;
 
         return false;
     }

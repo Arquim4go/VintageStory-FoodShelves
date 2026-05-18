@@ -31,8 +31,6 @@ public abstract class BEBaseFSContainer : BlockEntityDisplay, IFoodShelvesContai
     public virtual int AdditionalSlots { get; set; } = 0;
     public virtual int SlotCount => ShelfCount * SegmentsPerShelf * ItemsPerSegment + AdditionalSlots;
 
-    protected bool isBulk = false;
-
     public override void Initialize(ICoreAPI api) {
         block ??= (api.World.BlockAccessor.GetBlock(Pos) as BaseFSContainer)!;
         globalPerishMultiplier = api.World.Config.GetFloat("FoodShelves.GlobalPerishMultiplier", 1f);
@@ -47,14 +45,6 @@ public abstract class BEBaseFSContainer : BlockEntityDisplay, IFoodShelvesContai
         // Restrict chutes from interacting
         inv.OnGetAutoPushIntoSlot = (_, _) => null;
         inv.OnGetAutoPullFromSlot = _ => null;
-
-        foreach (var inv in Inventory) {
-            ItemSlotFSUniversal? fsSlot = inv as ItemSlotFSUniversal;
-            if (fsSlot?.isBulk == true) {
-                isBulk = true;
-                break;
-            }
-        }
     }
 
     protected virtual void InitMesh() {
@@ -95,11 +85,22 @@ public abstract class BEBaseFSContainer : BlockEntityDisplay, IFoodShelvesContai
     public virtual bool OnInteract(IPlayer byPlayer, BlockSelection blockSel, string? overrideAttrCheck = null) {
         ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
 
+        // Check if slot is bulk
+        int segmentIndex = blockSel.SelectionBoxIndex;
+        int startIndex = segmentIndex * ItemsPerSegment;
+
+        bool isBulkSlot = false;
+        if (startIndex < inv.Count && inv[startIndex] is ItemSlotFSUniversal fsSlot) {
+            isBulkSlot = fsSlot.isBulk;
+        }
+
+        // Determine if it's 'place' interaction
         bool shift = byPlayer.Entity.Controls.ShiftKey;
 
-        bool placeBulk = isBulk && shift;
-        bool placeSingle = !isBulk && !shift && !slot.Empty;
+        bool placeBulk = isBulkSlot && shift;
+        bool placeSingle = !isBulkSlot && !shift && !slot.Empty;
 
+        // Place interaction check
         if (placeBulk || placeSingle) {
             if (slot.Empty) return false;
 
@@ -130,7 +131,9 @@ public abstract class BEBaseFSContainer : BlockEntityDisplay, IFoodShelvesContai
         if (!CanInsertIntoSegment(inv[startIndex].Itemstack, incoming))
             return false;
 
-        if (!isBulk) {
+        bool isBulkSlot = inv[startIndex] is ItemSlotFSUniversal fsSlot && fsSlot.isBulk;
+
+        if (!isBulkSlot) {
             int limit = GetSegmentLimit(incoming);
             int count = CountItemsInSegment(startIndex);
 

@@ -11,6 +11,12 @@ public static class MeshExtensions {
         => mesh?.Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, (block?.Shape.rotateY ?? 0) * GameMath.DEG2RAD, 0);
 
     /// <summary>
+    /// Returns the shelf displayed shape defined in the attributes of an Item.
+    /// </summary>
+    public static string? GetDisplayedShape(this ItemStack stack)
+        => stack.ItemAttributes?["displayable"]?["shelf"]?["shape"]?["base"]?.AsString();
+
+    /// <summary>
     /// Updates the texture key for all faces in the shape’s root element and its children.
     /// </summary>
     public static void ChangeTextureKey(this Shape shape, string key) {
@@ -52,6 +58,24 @@ public static class MeshExtensions {
         }
 
         return remainingElements;
+    }
+
+    /// <summary>
+    /// If the shape file doesn't have any textures defined, transfers the textures from the itemtype itself.
+    /// </summary>
+    public static void TransferItemtypeTextures(this Shape shape, ItemStack stack) {
+        if (stack.Item == null && stack.Block == null)
+            return;
+
+        if (shape.Textures.Count != 0)
+            return;
+
+        var collectibleTextures = stack.Item?.Textures ?? stack.Block?.Textures;
+        if (collectibleTextures == null) return;
+
+        foreach (var texture in collectibleTextures) {
+            shape.Textures.Add(texture.Key, texture.Value.Base);
+        }
     }
 
     /// <summary>

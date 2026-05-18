@@ -53,6 +53,16 @@ public class BEWallCabinet : BEBaseFSAnimatable {
         }
     }
 
+    protected override bool TryPut(IPlayer byPlayer, ItemSlot slot, BlockSelection blockSel) {
+        if (slot.Itemstack?.IsLargeItem() == true)
+            return false;
+
+        if (slot.Itemstack?.IsMediumItem() == true)
+            return false;
+
+        return base.TryPut(byPlayer, slot, blockSel);
+    }
+
     protected bool TryUse(IPlayer player, BlockSelection blockSel) {
         int index = blockSel.SelectionBoxIndex;
 

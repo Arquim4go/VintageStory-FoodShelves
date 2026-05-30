@@ -23,7 +23,16 @@
   },
   "behaviors": [
     { "name": "RightClickPickup" },
-    { "name": "Unstable", "properties": { "attachedToFaces": ["up", "down"] } }
+    { 
+      "name": "Unstable", 
+      "properties": {
+        "attachedToFaces": [ "up", "down" ],
+        "attachmentAreas": {
+          "up": { "x1": 7, "y1": 0, "z1": 7, "x2": 8, "y2": 0, "z2": 8 },
+          "down": { "x1": 6, "y1": 15, "z1": 6, "x2": 10, "y2": 15, "z2": 10 }
+        }
+      } 
+    }
   ],
   "shape": {
     "base": "block/baskets/fruitbasket",
@@ -42,6 +51,9 @@
   "emitSideAo": { "all": false },
   "sidesolid": { "all": false },
   "sideopaque": { "all": false },
+  "groundTransform": {
+    "scale": 2.5
+  },
   "guiTransform": {
     "origin": { "x": 0.5, "y": 0.3, "z": 0.5 },
     "scale": 1.6

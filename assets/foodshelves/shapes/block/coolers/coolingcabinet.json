@@ -11,7 +11,7 @@
 		"surface": "game:block/wood/shelf/surface",
 		"surface_long": "foodshelves:block/wood/coolingcabinet/surface_long",
 		"frame-slab": "game:block/glass/frame-slab",
-		"glass": "game:block/glass/plain",
+		"glass": "game:block/glass/smoky",
 		"rock": "game:block/stone/polishedrock/chalk",
 		"ice": "game:block/liquid/ice/packedglacier1",
 		"water": "game:block/liquid/waterportion"

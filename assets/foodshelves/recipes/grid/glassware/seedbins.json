@@ -4,10 +4,7 @@
     "ingredients": {
       "P": { "type": "item", "code": "game:plank-{wood}", "quantity": 3 },
       "S": { "type": "item", "code": "game:stick", "quantity": 2 },
-      "G": { "type": "block", "code": "game:glassslab-{glass}-down-free" }
-    },
-    "allowedVariants": {
-      "glass": ["plain", "quartz"]
+      "G": { "type": "block", "code": "game:glassslab-*-down-free" }
     },
     "width": 3, "height": 2, "recipeGroup": 1,
     "output": {
@@ -15,29 +12,7 @@
       "code": "seedbins-normal-east",
       "attributes": {
         "FSAttributes": {
-          "wood": "{wood}",
-          "glass": "{glass}"
-        }
-      }
-    }
-  },
-  {
-    "ingredientPattern": "PGP,PSP",
-    "ingredients": {
-      "P": { "type": "item", "code": "*:plank-*", "quantity": 3 },
-      "S": { "type": "item", "code": "game:stick", "quantity": 2 },
-      "G": { "type": "block", "code": "game:glassslab-{glass}-down-free" }
-    },
-    "allowedVariants": {
-      "glass": ["plain", "quartz"]
-    },
-    "width": 3, "height": 2, "recipeGroup": 1,
-    "output": {
-      "type": "block",
-      "code": "seedbins-normal-east",
-      "attributes": {
-        "FSAttributes": {
-          "glass": "{glass}"
+          "wood": "{wood}"
         }
       }
     }

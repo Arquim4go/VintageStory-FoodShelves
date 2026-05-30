@@ -54,12 +54,21 @@ public abstract class BaseFSBasket : BaseFSContainer, IContainedInteractable {
     }
 
     public override void OnNeighbourBlockChange(IWorldAccessor world, BlockPos pos, BlockPos neibpos) {
-        BEBaseFSBasket? be = GetBlockEntity<BEBaseFSBasket>(pos);
-        if (be != null) {
-            Block upBlock = world.BlockAccessor.GetBlock(pos.UpCopy());
-            be.IsCeilingAttached = upBlock.SideSolid[BlockFacing.DOWN.Index];
+        if (neibpos.Equals(pos.UpCopy())) {
+            BEBaseFSBasket? be = GetBlockEntity<BEBaseFSBasket>(pos);
+            if (be != null) {
+                Block upBlock = world.BlockAccessor.GetBlock(pos.UpCopy());
 
-            be.MarkDirty(true);
+                var areasDict = TryGetAttachmentAreas(this);
+                Cuboidi? attachmentArea = GetAreaForFace(areasDict, "up");
+
+                bool currentlyAttached = upBlock.CanAttachBlockAt(world.BlockAccessor, this, pos.UpCopy(), BlockFacing.DOWN, attachmentArea);
+
+                if (currentlyAttached != be.IsCeilingAttached) {
+                    be.IsCeilingAttached = currentlyAttached;
+                    be.MarkDirty(true);
+                }
+            }
         }
 
         base.OnNeighbourBlockChange(world, pos, neibpos);

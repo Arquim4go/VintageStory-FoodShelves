@@ -6,12 +6,11 @@
       "R": { "type": "item", "code": "game:resin", "quantity": 2 },
       "H": { "type": "item", "code": "game:chisel-*", "isTool": true, "toolDurabilityCost": 10 },
       "Z": { "type": "item", "code": "game:ingot-{metal}" },
-      "G": { "type": "block", "code": "game:glassslab-{glass}-down-free" },
+      "G": { "type": "block", "code": "game:glassslab-*-down-free" },
       "C": { "type": "block", "code": "game:rockpolished-{rock}" }
     },
     "allowedVariants": {
-      "metal": [ "zinc", "tin" ],
-      "glass": [ "plain", "quartz" ]
+      "metal": [ "zinc", "tin" ]
     },
     "width": 3, "height": 3, "recipeGroup": 1,
     "output": {
@@ -20,7 +19,6 @@
       "attributes": {
         "FSAttributes": {
           "wood": "{wood}",
-          "glass": "{glass}",
           "rock": "{rock}"
         }
       }
@@ -33,12 +31,11 @@
       "R": { "type": "item", "code": "game:resin", "quantity": 2 },
       "H": { "type": "item", "code": "game:chisel-*", "isTool": true, "toolDurabilityCost": 10 },
       "Z": { "type": "item", "code": "game:ingot-{metal}" },
-      "G": { "type": "block", "code": "game:glassslab-{glass}-down-free" },
+      "G": { "type": "block", "code": "game:glassslab-*-down-free" },
       "C": { "type": "block", "code": "game:rockpolished-{rock}" }
     },
     "allowedVariants": {
-      "metal": [ "zinc", "tin" ],
-      "glass": [ "plain", "quartz" ]
+      "metal": [ "zinc", "tin" ]
     },
     "width": 3, "height": 3, "recipeGroup": 1,
     "output": {
@@ -46,7 +43,6 @@
       "code": "fruitcooler-normal-east",
       "attributes": {
         "FSAttributes": {
-          "glass": "{glass}",
           "rock": "{rock}"
         }
       }
@@ -78,12 +74,11 @@
       "R": { "type": "item", "code": "game:resin", "quantity": 2 },
       "H": { "type": "item", "code": "chiseltools:truechisel-*", "isTool": true, "toolDurabilityCost": 10 },
       "Z": { "type": "item", "code": "game:ingot-{metal}" },
-      "G": { "type": "block", "code": "game:glassslab-{glass}-down-free" },
+      "G": { "type": "block", "code": "game:glassslab-*-down-free" },
       "C": { "type": "block", "code": "game:rockpolished-{rock}" }
     },
     "allowedVariants": {
-      "metal": [ "zinc", "tin" ],
-      "glass": [ "plain", "quartz" ]
+      "metal": [ "zinc", "tin" ]
     },
     "width": 3, "height": 3, "recipeGroup": 1,
     "output": {
@@ -92,7 +87,6 @@
       "attributes": {
         "FSAttributes": {
           "wood": "{wood}",
-          "glass": "{glass}",
           "rock": "{rock}"
         }
       }
@@ -106,12 +100,11 @@
       "R": { "type": "item", "code": "game:resin", "quantity": 2 },
       "H": { "type": "item", "code": "chiseltools:truechisel-*", "isTool": true, "toolDurabilityCost": 10 },
       "Z": { "type": "item", "code": "game:ingot-{metal}" },
-      "G": { "type": "block", "code": "game:glassslab-{glass}-down-free" },
+      "G": { "type": "block", "code": "game:glassslab-*-down-free" },
       "C": { "type": "block", "code": "game:rockpolished-{rock}" }
     },
     "allowedVariants": {
-      "metal": [ "zinc", "tin" ],
-      "glass": [ "plain", "quartz" ]
+      "metal": [ "zinc", "tin" ]
     },
     "width": 3, "height": 3, "recipeGroup": 1,
     "output": {
@@ -119,7 +112,6 @@
       "code": "fruitcooler-normal-east",
       "attributes": {
         "FSAttributes": {
-          "glass": "{glass}",
           "rock": "{rock}"
         }
       }

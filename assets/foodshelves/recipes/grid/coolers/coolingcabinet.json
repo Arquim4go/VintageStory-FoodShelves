@@ -4,32 +4,7 @@
     "ingredients": {
       "P": { "type": "item", "code": "game:plank-{wood}", "quantity": 4 },
       "N": { "type": "item", "code": "game:metalnailsandstrips-*", "quantity": 2 },
-      "G": { "type": "block", "code": "game:glass-{glass}" },
-      "S": { "type": "block", "code": "game:shelf-*", "quantity": 3 },
-      "C": { "type": "block", "code": "game:rockpolished-{rock}", "quantity": 2 }
-    },
-    "allowedVariants": {
-      "glass": [ "plain", "quartz" ]
-    },
-    "width": 3, "height": 3, "recipeGroup": 1,
-    "output": {
-      "type": "block",
-      "code": "coolingcabinet-normal-east",
-      "attributes": {
-        "FSAttributes": {
-          "wood": "{wood}",
-          "glass": "{glass}",
-          "rock": "{rock}"
-        }
-      }
-    }
-  },
-  {
-    "ingredientPattern": "PNP,GSG,PCP",
-    "ingredients": {
-      "P": { "type": "item", "code": "game:plank-{wood}", "quantity": 4 },
-      "N": { "type": "item", "code": "game:metalnailsandstrips-*", "quantity": 2 },
-      "G": { "type": "block", "code": "*:glass-*" },
+      "G": { "type": "block", "code": "game:glass-*" },
       "S": { "type": "block", "code": "game:shelf-*", "quantity": 3 },
       "C": { "type": "block", "code": "game:rockpolished-{rock}", "quantity": 2 }
     },
@@ -50,31 +25,7 @@
     "ingredients": {
       "P": { "type": "item", "code": "*:plank-*", "quantity": 4 },
       "N": { "type": "item", "code": "game:metalnailsandstrips-*", "quantity": 2 },
-      "G": { "type": "block", "code": "game:glass-{glass}" },
-      "S": { "type": "block", "code": "game:shelf-*", "quantity": 3 },
-      "C": { "type": "block", "code": "game:rockpolished-{rock}", "quantity": 2 }
-    },
-    "allowedVariants": {
-      "glass": [ "plain", "quartz" ]
-    },
-    "width": 3, "height": 3, "recipeGroup": 1,
-    "output": {
-      "type": "block",
-      "code": "coolingcabinet-normal-east",
-      "attributes": {
-        "FSAttributes": {
-          "glass": "{glass}",
-          "rock": "{rock}"
-        }
-      }
-    }
-  },
-  {
-    "ingredientPattern": "PNP,GSG,PCP",
-    "ingredients": {
-      "P": { "type": "item", "code": "*:plank-*", "quantity": 4 },
-      "N": { "type": "item", "code": "game:metalnailsandstrips-*", "quantity": 2 },
-      "G": { "type": "block", "code": "*:glass-*" },
+      "G": { "type": "block", "code": "game:glass-*" },
       "S": { "type": "block", "code": "game:shelf-*", "quantity": 3 },
       "C": { "type": "block", "code": "game:rockpolished-{rock}", "quantity": 2 }
     },

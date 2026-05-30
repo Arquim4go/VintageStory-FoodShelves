@@ -3,7 +3,10 @@
     "file": "foodshelves:config/restrictions/general/fooduniversal.json",
     "op": "addmerge", "path": "/CollectibleCodes", "side": "server",
     "value": [
-      "pemmican:pemmican-*",
+      "pemmican:pemmican-raw",
+      "pemmican:pemmican-bar",
+      "pemmican:pemmican-salt",
+      "pemmican:pemmican-cooked",
       "pemmican:rusks-*",
       "pemmican:mushroompatebar"
     ],
@@ -13,11 +16,14 @@
     "file": "foodshelves:config/restrictions/general/holderuniversal.json",
     "op": "addmerge", "path": "/CollectibleCodes", "side": "server",
     "value": [
-      "pemmican:pemmican-*",
+      "pemmican:pemmican-raw",
+      "pemmican:pemmican-bar",
+      "pemmican:pemmican-salt",
+      "pemmican:pemmican-cooked",
       "pemmican:rusks-*",
+      "pemmican:*-pack",
       "pemmican:mushroompatebar",
-      "pemmican:chips-pack",
-      "pemmican:mushroom-pack"
+      "pemmican:nutribar-*"
     ],
     "dependsOn": [ { "modid": "longtermfood" } ]
   },
@@ -31,6 +37,8 @@
     ],
     "dependsOn": [ { "modid": "longtermfood" } ]
   },
+
+
   {
     "file": "foodshelves:config/restrictions/shelves/barshelf.json",
     "op": "addmerge", "path": "/CollectibleCodes", "side": "server",
@@ -40,7 +48,7 @@
       "pemmican:pemmican-salt",
       "pemmican:pemmican-cooked",
       "pemmican:mushroompatebar",
-      "pemmican:nutribar-general"
+      "pemmican:nutribar-*"
     ],
     "dependsOn": [ { "modid": "longtermfood" } ]
   },
@@ -60,6 +68,8 @@
     ],
     "dependsOn": [ { "modid": "longtermfood" } ]
   },
+
+
   {
     "file": "foodshelves:config/restrictions/baskets/eggbasket.json",
     "op": "addmerge", "path": "/CollectibleCodes", "side": "server",

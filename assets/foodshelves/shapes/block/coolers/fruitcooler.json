@@ -10,7 +10,7 @@
 	"textures": {
 		"surface": "game:block/wood/shelf/surface",
 		"rock": "game:block/stone/polishedrock/chalk",
-		"glass": "game:block/glass/plain",
+		"glass": "game:block/glass/smoky",
 		"frame-slab": "game:block/glass/frame-slab",
 		"ice": "game:block/liquid/ice/packedglacier1",
 		"water": "game:block/liquid/waterportion"

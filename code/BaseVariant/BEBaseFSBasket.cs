@@ -18,7 +18,11 @@ public abstract class BEBaseFSBasket : BEBaseFSContainer {
         base.OnBlockPlaced(byItemStack);
 
         Block attachingBlock = Api.World.BlockAccessor.GetBlock(Pos.UpCopy());
-        IsCeilingAttached = attachingBlock.CanAttachBlockAt(Api.World.BlockAccessor, Block, Pos, BlockFacing.DOWN);
+
+        var areasDict = TryGetAttachmentAreas(Block);
+        Cuboidi? attachmentArea = GetAreaForFace(areasDict, "up");
+
+        IsCeilingAttached = attachingBlock.CanAttachBlockAt(Api.World.BlockAccessor, Block, Pos.UpCopy(), BlockFacing.DOWN, attachmentArea);
     }
 
     public override bool OnInteract(IPlayer byPlayer, BlockSelection blockSel, string? overrideAttrCheck = null) {

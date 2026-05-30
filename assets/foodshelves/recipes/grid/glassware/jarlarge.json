@@ -4,10 +4,7 @@
     "ingredients": {
       "P": { "type": "item", "code": "game:plank-{wood}" },
       "S": { "type": "item", "code": "game:stick" },
-      "G": { "type": "block", "code": "game:glass-{glass}" }
-    },
-    "allowedVariants": {
-      "glass": ["plain", "quartz"]
+      "G": { "type": "block", "code": "game:glass-*" }
     },
     "width": 3, "height": 3, "recipeGroup": 1,
     "output": {
@@ -15,29 +12,7 @@
       "code": "jarlarge-normal",
       "attributes": {
         "FSAttributes": {
-          "wood": "{wood}",
-          "glass": "{glass}"
-        }
-      }
-    }
-  }, 
-  {
-    "ingredientPattern": "_P_,SGS,SSS",
-    "ingredients": {
-      "P": { "type": "item", "code": "*:plank-*" },
-      "S": { "type": "item", "code": "game:stick" },
-      "G": { "type": "block", "code": "game:glass-{glass}" }
-    },
-    "allowedVariants": {
-      "glass": ["plain", "quartz"]
-    },
-    "width": 3, "height": 3, "recipeGroup": 1,
-    "output": {
-      "type": "block",
-      "code": "jarlarge-normal",
-      "attributes": {
-        "FSAttributes": {
-          "glass": "{glass}"
+          "wood": "{wood}"
         }
       }
     }

@@ -68,11 +68,14 @@ public static class CheckExtensions {
         if (WildcardUtil.Match("wildcraftfruit:nutbar-*", stackCode)) return true;
         if (WildcardUtil.Match("expandedfoods:fruitbar-*", stackCode)) return true;
         if (WildcardUtil.Match("expandedfoods:cookedveggie-*", stackCode)) return true;
-
-        if (stackCode == "pemmican:mushroompatebar") return true;
-        if (stackCode == "pemmican:nutribar-general") return true;
         
-        if (WildcardUtil.Match("*pemmican-*", stackCode)) return true;
+        if (stackCode == "pemmican:mushroompatebar") return true;
+        if (stackCode == "pemmican:pemmican-raw") return true;
+        if (stackCode == "pemmican:pemmican-bar") return true;
+        if (stackCode == "pemmican:pemmican-cooked") return true;
+        if (stackCode == "pemmican:pemmican-salt") return true;
+        
+        if (WildcardUtil.Match("pemmican:nutribar-*", stackCode)) return true;
         if (WildcardUtil.Match("*vegetable-pumpkin", stackCode)) return true;
 
         return false;

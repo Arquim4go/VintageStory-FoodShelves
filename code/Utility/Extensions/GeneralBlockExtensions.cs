@@ -55,6 +55,27 @@ public static class GeneralBlockExtensions {
         return "";
     }
 
+    /// <summary> 
+    /// Safely retrieves the internal attachment areas dictionary from an Unstable behavior instance.
+    /// </summary>
+    public static Dictionary<string, Cuboidi>? TryGetAttachmentAreas(Block block) {
+        var unstableBehavior = block.GetBehavior<BlockBehaviorUnstable>();
+        if (unstableBehavior == null) return null;
+
+        var field = typeof(BlockBehaviorUnstable).GetField("attachmentAreas", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        return field?.GetValue(unstableBehavior) as Dictionary<string, Cuboidi>;
+    }
+
+    /// <summary>
+    /// Extracts a specific face's cuboid area from the attachment areas dictionary.
+    /// </summary>
+    public static Cuboidi? GetAreaForFace(Dictionary<string, Cuboidi>? areas, string faceKey) {
+        if (areas == null) return null;
+
+        areas.TryGetValue(faceKey, out var area);
+        return area;
+    }
+
     /// <summary>
     /// Populates the block's creative inventory with variant item stacks based on its material properties and orientation.<br/>
     /// - Checks the block's horizontal orientation and only proceeds if the block's current variant side matches the drop side.<br/>
